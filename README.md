@@ -1,15 +1,39 @@
 # RewindCam support site
 
-This repository contains the public technical-support site, privacy policy, and
-terms of service for RewindCam. The workflow publishes the repository root as a
-GitHub Pages project site whenever `main` receives a change.
+Public support, privacy policy, and terms of service for RewindCam. Plain HTML,
+CSS, and JavaScript; no third-party runtime dependencies.
 
-Expected project-site URL after the first successful deployment:
+## Cloudflare Pages
 
-- Home: `https://john-funcity.github.io/RewindCam-support-site/`
-- Support: `https://john-funcity.github.io/RewindCam-support-site/support/`
-- Privacy: `https://john-funcity.github.io/RewindCam-support-site/privacy/`
-- Terms: `https://john-funcity.github.io/RewindCam-support-site/terms/`
+- Production domain: `https://rewindcam.funtanstic.fun`
+- Repository: `John-Funcity/RewindCam-support-site`
+- Production branch: `main`
+- Framework preset: None
+- Build command: `sh scripts/build.sh`
+- Build output directory: `dist`
+- Root directory: repository root (leave empty)
 
-The URLs are not live until the workflow is pushed and GitHub Pages is enabled for
-the repository. The site has no third-party runtime dependencies.
+The build copies only public site files into `dist/`; repository documentation,
+scripts and workflow files are excluded from the deployment. Cloudflare's GitHub
+integration automatically deploys future commits to `main` after setup.
+
+Production URLs:
+
+- Home: `https://rewindcam.funtanstic.fun/`
+- Support: `https://rewindcam.funtanstic.fun/support/`
+- Privacy: `https://rewindcam.funtanstic.fun/privacy/`
+- Terms: `https://rewindcam.funtanstic.fun/terms/`
+
+Build and preview locally:
+
+```sh
+sh scripts/build.sh
+python3 -m http.server 8080 --directory dist
+```
+
+GitHub Pages remains available at
+`https://john-funcity.github.io/RewindCam-support-site/` during migration so
+existing App Store links keep working. Its workflow adapts the 404 page to the
+legacy project prefix. Updating App Store Connect URLs is a separate step.
+
+See `MIGRATION.md` for the actual deployment and verification status.

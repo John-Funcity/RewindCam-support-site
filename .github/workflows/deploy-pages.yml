@@ -25,13 +25,23 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Build public files for legacy GitHub Pages
+        run: |
+          sh scripts/build.sh
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          page = Path("dist/404.html")
+          html = page.read_text().replace('href="/assets/', 'href="/RewindCam-support-site/assets/').replace('href="/"', 'href="/RewindCam-support-site/"')
+          page.write_text(html)
+          PYTHON
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
