@@ -19,8 +19,27 @@ GitHub Actions workflow adjusts those paths to its project prefix.
 - `sh -n scripts/build.sh`: passed.
 - All local links and assets across five generated HTML pages: passed.
 - `git diff --check`: passed.
-- Cloudflare deployment, custom domain, HTTPS, public page status and 404:
-  pending production verification; update this section after deployment.
+- Cloudflare deployed source commit `e17be3a`; deployment ID
+  `f9fb627b-c703-4341-9920-dfc6544c94de`.
+- CNAME `rewindcam` -> `rewindcam-support-site.pages.dev`, proxied, automatic TTL.
+- Cloudflare custom domain status: Active; SSL enabled.
+- `https://rewindcam.funtanstic.fun/`, `/support/`, `/privacy/`, `/terms/`,
+  `/assets/styles.css`, `/assets/site.js`: HTTP 200, curl TLS verification 0.
+- `/missing-migration-check` and `/README.md`: HTTP 404 with the site's 404 title.
+- The default `https://rewindcam-support-site.pages.dev` URL passed the same
+  HTTP status and TLS checks.
+- Edge loaded the custom-domain home page with working navigation. HTML page
+  titles and asset bytes were checked against the build. Cloudflare's existing
+  email protection rewrites email links and injects its decoding script, so
+  HTML is not byte-identical to source; the browser resolves the contact link.
+- Legacy GitHub Pages workflow run `39193788199`: success. The old terms URL
+  still returns HTTP 200.
+- Initial custom-domain requests returned 522 during provisioning; they returned
+  200 after activation. Python urllib failed due to its local CA setup; final
+  checks used curl with certificate verification enabled.
+
+Verification occurred on 2026-10-19 around 11:18 China Standard Time. These are
+point-in-time checks, not a guarantee of global propagation or availability.
 
 ## Compatibility and follow-up
 
